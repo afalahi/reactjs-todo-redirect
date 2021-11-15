@@ -1,4 +1,4 @@
-# React JS Todo Sample App
+# React JS Todo Sample App with AuthZ Code Redirect
 
 ## Disclaimers
 
