@@ -8,7 +8,7 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import qs from 'qs';
 import { useHistory } from 'react-router';
 import BackHome from '../components/utilities/back-home';
@@ -24,35 +24,36 @@ import Alert from '../components/journey/alert';
  * @returns {Object} - React component object
  */
 export default function Login({ location }) {
-  const [isAuthenticated, setAuthentication] = useState(false);
   const [_, methods] = useContext(AppContext);
   const history = useHistory();
 
   useEffect(() => {
     async function getTokens() {
-      if (!isAuthenticated && !qs.parse(location.search)['?code']) {
+      if (!_.isAuthenticated && !qs.parse(location.search)['?code']) {
+        console.log('not authenticated and no code');
         await TokenManager.getTokens({ login: 'redirect' });
       } else if (qs.parse(location.search)['?code']) {
+        console.log('Authenticated and has code');
         await TokenManager.getTokens({
           query: {
             code: qs.parse(location.search)['?code'],
             state: qs.parse(location.search)['state'],
           },
         });
-        setAuthentication(true);
         const user = await UserManager.getCurrentUser();
         methods.setUser(user.name);
         methods.setEmail(user.email);
         methods.setAuthentication(true);
         history.push('/');
       } else {
+        console.log('we should redirect to home');
         history.push('/');
       }
     }
     getTokens();
   }, []);
 
-  if (!methods.isAuthenticated) {
+  if (!_.isAuthenticated) {
     return <Loading message='Checking your session ...' />;
   }
   return (
