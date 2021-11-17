@@ -142,8 +142,8 @@ reports/*
 
 # Sample code
 public/app.*
-todos
-users
+/todos
+/users
 
 # Environment files
 .env

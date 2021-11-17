@@ -17,9 +17,11 @@ import TodoIcon from '../icons/todo-icon';
 /**
  * @function Todo - Used for display a single todo and its details
  * @param {Object} props - The object representing React's props
- * @param {Object} props.setTodoActionId - Method from parent for passing the ID of todo
- * @param {Object} props.todo - The todo object passed from the parent component
- * @returns {Object} - React JSX view
+ * @param {Function} props.completeTodo - A function for toggling a todo's complete state
+ * @param {Function} props.setSelectedDeleteTodo - A function for setting the todo for deletion
+ * @param {Function} props.setSelectedEditTodo - A function for setting the todo for edit
+ * @param {Object} props.item - The todo item instance to be rendered
+ * @returns {Object} - React component object
  */
 export default function Todo({
   completeTodo,
@@ -44,63 +46,60 @@ export default function Todo({
 
   return (
     <li
-      className={`cstm_todo-item list-group-item list-group-item-action p-0 ${state.theme.textClass}`}
+      className={`cstm_todo-item list-group-item list-group-item-action d-flex p-0 ${state.theme.textClass}`}
     >
-      <div className='row'>
-        <div className='col'>
-          <input
-            id={todo._id}
-            className='cstm_form-check form-check-input visually-hidden'
-            type='checkbox'
-            defaultChecked={todo.completed}
-            onChange={e => {
-              completeTodo(todo._id, e.target.checked);
-            }}
-          />
-          <label htmlFor={todo._id} className={todoClasses}>
-            <TodoIcon
-              classes='me-2 col-1'
-              completed={todo.completed}
-              size='36px'
-            />
-            {todo.title}
-          </label>
-        </div>
+      <div className="flex-grow-1">
+        <input
+          id={todo._id}
+          className="cstm_form-check form-check-input visually-hidden"
+          type="checkbox"
+          defaultChecked={todo.completed}
+          onChange={(e) => {
+            completeTodo(todo._id, e.target.checked);
+          }}
+        />
+        <label htmlFor={todo._id} className={todoClasses}>
+          <TodoIcon classes="me-2" completed={todo.completed} size="36px" />
+          {todo.title}
+        </label>
+      </div>
 
-        <div className='dropdown col-2 text-end' aria-expanded='false'>
-          <button
-            className='cstm_dropdown-actions btn h-100'
-            data-bs-toggle='dropdown'
-            id={`todo_action_${todo._id}`}
-          >
-            <ActionIcon />
-          </button>
-          <ul
-            className={`dropdown-menu dropdown-menu-end shadow-sm ${state.theme.dropdownClass}`}
-            aria-labelledby={`todo_action_${todo._id}`}
-          >
-            <li>
-              <button
-                className='dropdown-item'
-                onClick={() => setSelectedEditTodo(todo)}
-                data-bs-toggle='modal'
-                data-bs-target='#editModal'
-              >
-                Edit
-              </button>
-            </li>
-            <li>
-              <button
-                className='dropdown-item'
-                onClick={() => setSelectedDeleteTodo(todo)}
-                data-bs-toggle='modal'
-                data-bs-target='#deleteModal'
-              >
-                Delete
-              </button>
-            </li>
-          </ul>
-        </div>
+      <div
+        className="dropdown text-end d-flex align-items-center"
+        aria-expanded="false"
+      >
+        <button
+          className="cstm_dropdown-actions btn h-auto"
+          data-bs-toggle="dropdown"
+          id={`todo_action_${todo._id}`}
+        >
+          <ActionIcon />
+        </button>
+        <ul
+          className={`dropdown-menu dropdown-menu-end shadow-sm ${state.theme.dropdownClass}`}
+          aria-labelledby={`todo_action_${todo._id}`}
+        >
+          <li>
+            <button
+              className="dropdown-item"
+              onClick={() => setSelectedEditTodo(todo)}
+              data-bs-toggle="modal"
+              data-bs-target="#editModal"
+            >
+              Edit
+            </button>
+          </li>
+          <li>
+            <button
+              className="dropdown-item"
+              onClick={() => setSelectedDeleteTodo(todo)}
+              data-bs-toggle="modal"
+              data-bs-target="#deleteModal"
+            >
+              Delete
+            </button>
+          </li>
+        </ul>
       </div>
     </li>
   );

@@ -11,12 +11,12 @@
 import React, { useContext, Fragment, useReducer, useState } from 'react';
 
 import { AppContext } from '../global-state';
-import CreateTodo from '../components/todos/create';
-import DeleteModal from '../components/todos/delete';
-import EditModal from '../components/todos/edit';
-import useTodoFetch from '../components/todos/fetch';
-import reducer from '../components/todos/reducer';
-import Todo from '../components/todos/todo';
+import CreateTodo from '../components/todo/create';
+import DeleteModal from '../components/todo/delete';
+import EditModal from '../components/todo/edit';
+import useTodoFetch from '../components/todo/fetch';
+import reducer from '../components/todo/reducer';
+import Todo from '../components/todo/todo';
 import apiRequest from '../utilities/request';
 
 /**
