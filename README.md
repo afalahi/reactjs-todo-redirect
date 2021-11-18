@@ -44,19 +44,6 @@ This project requires HTTPS (secure protocol) which means security (SSL/TLS) cer
 #### Create your Authentication Journeys/Trees
 
 1. Login
-2. Register
-
-Note: The sample app currently supports the following callbacks only:
-
-- NameCallback
-- PasswordCallback
-- ChoiceCallback
-- ValidatedCreateUsernameCallback
-- ValidatedCreatePasswordCallback
-- StringAttributeInputCallback
-- BooleanAttributeInputCallback
-- KbaCreateCallback
-- TermsAndConditionsCallback
 
 ### Configure Your `.env` File
 
@@ -70,8 +57,6 @@ APP_URL=https://react.example.com:8443 (your SPA's URL)
 API_URL=https://api.example.com:9443 (your resource API server's URL)
 DEBUGGER_OFF=false
 DEVELOPMENT=true
-JOURNEY_LOGIN=Login (name of journey/tree for Login)
-JOURNEY_REGISTER=Registration (name of journey/tree for Register)
 SEC_KEY_FILE=key-file.pem
 SEC_CERT_FILE=cer-filet.pem
 REALM_PATH=alpha
@@ -82,19 +67,19 @@ WEB_OAUTH_CLIENT=example-react-app (the name of the public OAuth 2.0 client/appl
 
 ### Installing Dependencies and Run Build
 
-**Run from root of repo**: since this sample app uses npm's workspaces, we recommend running the npm commands from the root of the repo. You can run this sample app's scripts from the root with the `-w` option to specify this sample app.
-
 ```sh
 # Install all dependencies (no need to pass the -w option)
 npm install
 
 # Build this sample app project
-npm run build -w reactjs-todos
+npm run build
 ```
 
-### Update Your `/etc/hosts` File
+### Update Your `hosts` File
 
-Now you'll need to update your `hosts` (`/etc/hosts` if on a Mac) to allow for domain aliases:
+Now you'll need to update your `hosts` (`/etc/hosts` if on a Mac and `C:\Windows\System32\drivers\etc\hosts` on Windows) to allow for domain aliases:
+
+`For Mac`
 
 ```sh
 sudo vim /etc/hosts
@@ -105,19 +90,30 @@ sudo vim /etc/hosts
 127.0.0.1 react.example.com api.example.com
 ```
 
+`For Windows (Elevated Command)`
+
+```powershell
+Add-Content -Path $env:windir\System32\drivers\etc\hosts -Value "`n127.0.0.1`treact.example.com api.example.com" -Force
+```
+
 ### Run the Servers
 
 Now, run the below commands to start the processes needed for building the application and running the servers for both client and API server:
 
 ```sh
-# In one terminal window, run the following watch command
-# This "watches" the client source files for changes and rebuilds when needed
-npm run watch -w reactjs-todos
+# To Start the app, in a terminal window, run the following watch command
+# This starts the client and server
+npm run start
 ```
 
 ```sh
-# In another terminal window, run the dev servers for both client and server
-npm run servers -w reactjs-todos
+# To run in dev mode, in a terminal window, start 'watching' the react source code
+npm run watch
+```
+
+```sh
+# In another terminal window, start the dev builds of app and server
+npm run dev
 ```
 
 Now, you should be able to visit `https://react.example.com:8443`, which is your web app or client (the Relying Party in OAuth terms). This client will make requests to your AM instance, (the Authorization Server in OAuth terms), which will be running on whatever domain you set, and `https://api.example.com:9443` as the REST API for your todos (the Resource Server).

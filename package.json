@@ -8,7 +8,7 @@
     "lint": "eslint './{client,server}/**/*.{js,mjs}' --fix",
     "reset": "shx rm -rf ./todos ./users && npm run clean && git clean -fX -e \"!.env\" -e \"!*.pem\"",
     "start": "npm-run-all --parallel spa server",
-    "dev": "npm-run-all --parallel watch spa server:dev",
+    "dev": "npm-run-all --parallel spa server:dev",
     "spa": "ws --cert cert.pem --key key.pem -d public/ --spa index.html -p 443",
     "server": "node -r dotenv/config ./server/index.mjs",
     "server:dev": "nodemon -r dotenv/config ./server/index.mjs",
