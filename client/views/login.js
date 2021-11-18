@@ -50,7 +50,7 @@ export default function Login({ location }) {
       }
     }
     getTokens();
-  }, [state, query]);
+  }, []);
 
   if (!state.isAuthenticated) {
     return <Loading message='Checking your session ...' />;
