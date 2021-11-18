@@ -53,17 +53,17 @@ export default function Login({ location }) {
   }, [state, query]);
 
   if (!state.isAuthenticated) {
-    return <Loading message="Checking your session ..." />;
+    return <Loading message='Checking your session ...' />;
   }
   return (
-    <div className="cstm_container_v-centered container-fluid d-flex align-items-center">
-      <div className="w-100">
+    <div className='cstm_container_v-centered container-fluid d-flex align-items-center'>
+      <div className='w-100'>
         <BackHome />
         <Card>
-          <div className="cstm_form-icon  align-self-center mb-3">
-            <KeyIcon size="72px" />
+          <div className='cstm_form-icon  align-self-center mb-3'>
+            <KeyIcon size='72px' />
           </div>
-          <Alert message="Success! You're logged in." type="success" />
+          <Alert message="Success! You're logged in." type='success' />
         </Card>
       </div>
     </div>

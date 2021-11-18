@@ -46,11 +46,11 @@ export default function Edit({
   return (
     <div
       className={`modal fade`}
-      data-bs-backdrop="static"
-      id="editModal"
-      tabIndex="-1"
-      aria-modal="true"
-      role="dialog"
+      data-bs-backdrop='static'
+      id='editModal'
+      tabIndex='-1'
+      aria-modal='true'
+      role='dialog'
     >
       <div className={`modal-dialog`}>
         <div
@@ -61,36 +61,36 @@ export default function Edit({
               Edit Todo
             </h4>
           </div>
-          <form onSubmit={(e) => submit(e, 'form')} className="modal-body">
-            <div className="cstm_todos-input cstm_form-floating form-floating flex-grow-1">
+          <form onSubmit={e => submit(e, 'form')} className='modal-body'>
+            <div className='cstm_todos-input cstm_form-floating form-floating flex-grow-1'>
               <input
-                id="editTodo"
-                type="text"
+                id='editTodo'
+                type='text'
                 className={`cstm_form-control form-control bg-transparent ${state.theme.textClass} ${state.theme.borderClass}`}
                 value={selectedEditTodo ? selectedEditTodo.title : ''}
                 onChange={updateTitle}
                 ref={textInput}
-                required="required"
+                required='required'
               />
-              <label htmlFor="newTodo">Update todo text</label>
+              <label htmlFor='newTodo'>Update todo text</label>
             </div>
           </form>
           <div className={`modal-footer ${state.theme.borderClass}`}>
             <button
-              id="closeEditModalBtn"
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#editModal"
-              className="btn btn-secondary"
+              id='closeEditModalBtn'
+              type='button'
+              data-bs-toggle='modal'
+              data-bs-target='#editModal'
+              className='btn btn-secondary'
             >
               Close
             </button>
             <button
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#editModal"
-              className="btn btn-primary"
-              onClick={(e) => submit(e, 'update-button')}
+              type='button'
+              data-bs-toggle='modal'
+              data-bs-target='#editModal'
+              className='btn btn-primary'
+              onClick={e => submit(e, 'update-button')}
             >
               Update Todo
             </button>

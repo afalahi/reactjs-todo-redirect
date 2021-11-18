@@ -73,7 +73,7 @@ export default function Todos() {
        * If no todos were returned, show the "no todos" message.
        */}
       {todos.length ? (
-        todos.map((item) => {
+        todos.map(item => {
           return (
             <Todo
               completeTodo={completeTodo}
@@ -85,9 +85,9 @@ export default function Todos() {
           );
         })
       ) : (
-        <li className="cstm_todo-item list-group-item list-group-item-action p-0">
-          <div className="row">
-            <p className="col d-flex align-items-center fs-5 text-muted w-100 ms-3 p-3">
+        <li className='cstm_todo-item list-group-item list-group-item-action p-0'>
+          <div className='row'>
+            <p className='col d-flex align-items-center fs-5 text-muted w-100 ms-3 p-3'>
               No todos yet. Create one above!
             </p>
           </div>
@@ -98,8 +98,8 @@ export default function Todos() {
     <p
       className={`d-flex justify-content-center align-items-center border-top px-3 ${state.theme.borderClass}`}
     >
-      <span className="spinner-border text-primary my-2" role="status"></span>
-      <span className="p-3 fs-5">Collecting your todos ...</span>
+      <span className='spinner-border text-primary my-2' role='status'></span>
+      <span className='p-3 fs-5'>Collecting your todos ...</span>
     </p>
   );
 
@@ -107,7 +107,7 @@ export default function Todos() {
     <Fragment>
       <div className={`cstm_container container-fluid`}>
         <h1 className={`mt-5 ${state.theme.textClass}`}>Your Todos</h1>
-        <p className="fs-6 text-muted">Create and manage your todos.</p>
+        <p className='fs-6 text-muted'>Create and manage your todos.</p>
         <div className={`card shadow-sm mb-5 ${state.theme.cardBgClass}`}>
           <CreateTodo addTodo={addTodo} />
           {Todos}

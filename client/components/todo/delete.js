@@ -24,33 +24,33 @@ export default function Delete({ deleteTodo }) {
   return (
     <div
       className={`modal fade`}
-      data-bs-backdrop="static"
-      id="deleteModal"
-      tabIndex="-1"
-      aria-modal="true"
-      role="dialog"
+      data-bs-backdrop='static'
+      id='deleteModal'
+      tabIndex='-1'
+      aria-modal='true'
+      role='dialog'
     >
       <div className={`modal-dialog`}>
         <div
           className={`modal-content  ${state.theme.cardBgClass} ${state.theme.textClass} ${state.theme.borderClass}`}
         >
-          <div className="modal-body pt-4 px-4">
+          <div className='modal-body pt-4 px-4'>
             <p>Are you sure you want to delete this todo?</p>
           </div>
           <div className={`modal-footer p-3 ${state.theme.borderClass}`}>
             <button
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#deleteModal"
-              className="btn btn-secondary"
+              type='button'
+              data-bs-toggle='modal'
+              data-bs-target='#deleteModal'
+              className='btn btn-secondary'
             >
               Close
             </button>
             <button
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#deleteModal"
-              className="btn btn-danger"
+              type='button'
+              data-bs-toggle='modal'
+              data-bs-target='#deleteModal'
+              className='btn btn-danger'
               onClick={deleteTodo}
             >
               Delete Todo

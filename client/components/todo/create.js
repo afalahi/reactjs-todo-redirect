@@ -41,27 +41,27 @@ export default function CreateTodo({ addTodo }) {
   return (
     <form
       className={`p-3 d-flex ${state.theme.textClass}`}
-      action="https://api.example.com:8443/todos"
-      method="POST"
+      action='https://api.example.com:8443/todos'
+      method='POST'
       onSubmit={createTodo}
     >
-      <div className="cstm_todos-input cstm_form-floating form-floating flex-grow-1">
+      <div className='cstm_todos-input cstm_form-floating form-floating flex-grow-1'>
         <input
-          id="newTodo"
-          type="text"
+          id='newTodo'
+          type='text'
           className={`cstm_form-control form-control bg-transparent ${state.theme.textClass} ${state.theme.borderClass}`}
-          placeholder="What needs doing?"
-          required="required"
+          placeholder='What needs doing?'
+          required='required'
           ref={textInput}
         />
-        <label htmlFor="newTodo">What needs doing?</label>
+        <label htmlFor='newTodo'>What needs doing?</label>
       </div>
-      <button className="btn btn-primary ms-2" type="submit">
+      <button className='btn btn-primary ms-2' type='submit'>
         {creatingTodo ? (
           <span
-            className="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
+            className='spinner-border spinner-border-sm'
+            role='status'
+            aria-hidden='true'
           ></span>
         ) : (
           'Create'

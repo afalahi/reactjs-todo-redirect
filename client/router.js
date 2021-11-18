@@ -38,21 +38,21 @@ export default function Router() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/login" component={Login}>
+        <Route path='/login' component={Login}>
           {/* <Login /> */}
         </Route>
-        <Route path="/register">
+        <Route path='/register'>
           <Register />
         </Route>
-        <ProtectedRoute path="/todos">
+        <ProtectedRoute path='/todos'>
           <Header />
           <Todos />
           <Footer />
         </ProtectedRoute>
-        <Route path="/logout">
+        <Route path='/logout'>
           <Logout />
         </Route>
-        <Route path="/">
+        <Route path='/'>
           <ScrollToTop />
           <Header />
           <Home />

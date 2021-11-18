@@ -23,9 +23,9 @@ export default function reducer(state, action) {
     case 'add-todo':
       return [action.payload.todo, ...state];
     case 'delete-todo':
-      return state.filter((todo) => todo._id !== action.payload._id);
+      return state.filter(todo => todo._id !== action.payload._id);
     case 'complete-todo':
-      return state.map((todo) => {
+      return state.map(todo => {
         if (todo._id === action.payload._id) {
           return {
             ...todo,
@@ -36,7 +36,7 @@ export default function reducer(state, action) {
         }
       });
     case 'edit-todo':
-      return state.map((todo) => {
+      return state.map(todo => {
         if (todo._id === action.payload._id) {
           return {
             ...todo,
