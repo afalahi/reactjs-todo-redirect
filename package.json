@@ -8,8 +8,10 @@
     "lint": "eslint './{client,server}/**/*.{js,mjs}' --fix",
     "reset": "shx rm -rf ./todos ./users && npm run clean && git clean -fX -e \"!.env\" -e \"!*.pem\"",
     "start": "npm-run-all --parallel spa server",
+    "dev": "npm-run-all --parallel watch spa server:dev",
     "spa": "ws --cert cert.pem --key key.pem -d public/ --spa index.html -p 443",
     "server": "node -r dotenv/config ./server/index.mjs",
+    "server:dev": "nodemon -r dotenv/config ./server/index.mjs",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack -w"
   },
@@ -52,6 +54,7 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "nodemon": "^2.0.15",
     "npm-run-all": "^4.1.5",
     "pouchdb": "^7.2.2",
     "qs": "^6.10.1",
