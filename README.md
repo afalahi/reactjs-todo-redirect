@@ -19,9 +19,53 @@ Once you have the 5 requirements above met, we can build the project.
 ### Security Certificates
 
 This project requires HTTPS (secure protocol) which means security (SSL/TLS) certificates are necessary. For local development, it's common to generate your own self-signed certificates. You're free to use any method to do this, but if you need assistance in generating your own certs, the following can be helpful:
+> **Windows: You'll need to install openssl for the commands below to work you can use chocolaty to install it using `choco install openssl`**
 
-- Using [this utility (`mkcert`) can help simplify the process of creating trusted certs](https://github.com/FiloSottile/mkcert)
-- After following `mkcert`'s installation guide and simple example of creating certs, you should have two files: `example.com+5.pem` & `example.com+5-key.pem`
+```sh
+# Generate your certificate key and create a new certificate request
+openssl genrsa -out key.pem
+openssl req -new -key key.pem -out csr.pem
+```
+
+The output of the second command will look like this:
+
+```sh
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:
+State or Province Name (full name) [Some-State]:
+Locality Name (eg, city) []:
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:
+Organizational Unit Name (eg, section) []:
+Common Name (e.g. server FQDN or YOUR name) []:
+Email Address []:
+```
+
+For the `Common Name` enter `todos.example.com`. If you want to use a different `Common Name` then make sure you use the same value everywhere in this guide
+
+Create an openssl extension file to include Subject Alternative Names, name the file `cert-ext.cnf`, and the contents of the file should be like this:
+
+```text
+basicConstraints = CA:FALSE
+nsCertType = server
+nsComment = "OpenSSL Generated Server Certificate"
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer:always
+keyUsage = critical, digitalSignature, keyEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = DNS:todos.example.com, DNS:localhost, DNS:api.example.com
+```
+
+Generate your certificate
+
+```sh
+openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem -extfile client_cert_ext.cnf
+```
 
   (Ensure these two files are at the root of this project; you can name them whatever you want since you configure them in your `.env` file)
 
@@ -31,7 +75,7 @@ This project requires HTTPS (secure protocol) which means security (SSL/TLS) cer
 
 #### Configure CORS
 
-1. Allowed origins: `https://react.example.com:8443`
+1. Allowed origins: `https://todos.example.com:443`
 2. Allowed methods: `GET` `POST`
 3. Allowed headers: `Content-Type` `X-Requested-With` `Accept-API-Version` `Authorization`
 4. Allow credentials: enable
@@ -53,12 +97,12 @@ Example with annotations:
 
 ```text
 AM_URL=https://example-am-instance.forgerock.com/am (include the /am)
-APP_URL=https://react.example.com:8443 (your SPA's URL)
+APP_URL=https://todos.example.com:443 (your SPA's URL)
 API_URL=https://api.example.com:9443 (your resource API server's URL)
 DEBUGGER_OFF=false
 DEVELOPMENT=true
-SEC_KEY_FILE=key-file.pem
-SEC_CERT_FILE=cer-filet.pem
+SEC_KEY_FILE=cert.pem
+SEC_CERT_FILE=key.pem
 REALM_PATH=alpha
 REST_OAUTH_CLIENT=sample-app-server (name of private OAuth 2.0 client/application)
 REST_OAUTH_SECRET=secret (the secret for the private OAuth 2.0 client/application)
@@ -87,13 +131,13 @@ sudo vim /etc/hosts
 
 ```text
 # hosts file aliases
-127.0.0.1 react.example.com api.example.com
+127.0.0.1 todos.example.com api.example.com
 ```
 
 `For Windows (Elevated Command)`
 
 ```powershell
-Add-Content -Path $env:windir\System32\drivers\etc\hosts -Value "`n127.0.0.1`treact.example.com api.example.com" -Force
+Add-Content -Path $env:windir\System32\drivers\etc\hosts -Value "`n#ForgeRock React Sample Todo`r127.0.0.1`ttodos.example.com`tapi.example.com" -Force
 ```
 
 ### Run the Servers
@@ -116,11 +160,17 @@ npm run watch
 npm run dev
 ```
 
-Now, you should be able to visit `https://react.example.com:8443`, which is your web app or client (the Relying Party in OAuth terms). This client will make requests to your AM instance, (the Authorization Server in OAuth terms), which will be running on whatever domain you set, and `https://api.example.com:9443` as the REST API for your todos (the Resource Server).
+Now, you should be able to visit `https://todos.example.com`, which is your web app or client (the Relying Party in OAuth terms). This client will make requests to your AM instance, (the Authorization Server in OAuth terms), which will be running on whatever domain you set, and `https://api.example.com:9443` as the REST API for your todos (the Resource Server).
 
-### Accept Cert Exceptions
+### Trust Certs
 
-You will likely have to accept the security certificate exceptions for both your React app and the Node.js server. To accept the cert form the Node.js server, you can visit `https://api.example.com:9443/healthcheck` in your browser. Once you receive "OK", your Node.js server is running on the correct domain and port, and the cert is accepted.
+#### Windows
+
+Copy your `cert.pem` file and change the extension to `.crt`, so your file will be `cert.crt`. You'll end up with two files `cert.pem` and `cert.crt`. Double click the `cert.crt` file, and install it in your machine store as a trusted certificate authority
+
+#### Mac
+
+Using keychain access, you can double-click the certificates and install it in your personal store. You may need to change the extension to `.crt` if it doesn't work
 
 ## Learn About Integration Touchpoints
 
