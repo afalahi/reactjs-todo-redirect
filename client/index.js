@@ -12,13 +12,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Router from './router';
-import {
-  AM_URL,
-  APP_URL,
-  JOURNEY_LOGIN,
-  REALM_PATH,
-  WEB_OAUTH_CLIENT,
-} from './constants';
+import { AM_URL, APP_URL, REALM_PATH, WEB_OAUTH_CLIENT } from './constants';
 import { AppContext, useGlobalStateMgmt } from './global-state';
 
 /**
@@ -33,10 +27,9 @@ Config.set({
   scope: 'openid profile email',
   serverConfig: {
     baseUrl: AM_URL,
-    timeout: '5000',
+    timeout: '2000',
   },
   realmPath: REALM_PATH,
-  // tree: JOURNEY_LOGIN
 });
 
 /**

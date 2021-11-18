@@ -9,7 +9,6 @@
  */
 
 import React, { useContext, useEffect } from 'react';
-import qs from 'qs';
 import { useHistory } from 'react-router';
 import BackHome from '../components/utilities/back-home';
 import Card from '../components/layout/card';
@@ -24,22 +23,22 @@ import Alert from '../components/journey/alert';
  * @returns {Object} - React component object
  */
 export default function Login({ location }) {
-  const [_, methods] = useContext(AppContext);
+  const [state, methods] = useContext(AppContext);
   const history = useHistory();
+  const searchParams = new URLSearchParams(location.search);
+  const query = {
+    code: searchParams.get('code'),
+    state: searchParams.get('state'),
+  };
 
   useEffect(() => {
     async function getTokens() {
-      if (!_.isAuthenticated && !qs.parse(location.search)['?code']) {
+      if (!state.isAuthenticated && !query.code) {
         console.log('not authenticated and no code');
         await TokenManager.getTokens({ login: 'redirect' });
-      } else if (qs.parse(location.search)['?code']) {
+      } else if (query.code) {
         console.log('Authenticated and has code');
-        await TokenManager.getTokens({
-          query: {
-            code: qs.parse(location.search)['?code'],
-            state: qs.parse(location.search)['state'],
-          },
-        });
+        await TokenManager.getTokens({ query });
         const user = await UserManager.getCurrentUser();
         methods.setUser(user.name);
         methods.setEmail(user.email);
@@ -51,20 +50,20 @@ export default function Login({ location }) {
       }
     }
     getTokens();
-  }, []);
+  }, [state, query]);
 
-  if (!_.isAuthenticated) {
-    return <Loading message='Checking your session ...' />;
+  if (!state.isAuthenticated) {
+    return <Loading message="Checking your session ..." />;
   }
   return (
-    <div className='cstm_container_v-centered container-fluid d-flex align-items-center'>
-      <div className='w-100'>
+    <div className="cstm_container_v-centered container-fluid d-flex align-items-center">
+      <div className="w-100">
         <BackHome />
         <Card>
-          <div className='cstm_form-icon  align-self-center mb-3'>
-            <KeyIcon size='72px' />
+          <div className="cstm_form-icon  align-self-center mb-3">
+            <KeyIcon size="72px" />
           </div>
-          <Alert message="Success! You're logged in." type='success' />
+          <Alert message="Success! You're logged in." type="success" />
         </Card>
       </div>
     </div>
