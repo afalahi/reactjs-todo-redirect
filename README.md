@@ -123,7 +123,7 @@ npm run build
 
 Now you'll need to update your `hosts` (`/etc/hosts` if on a Mac and `C:\Windows\System32\drivers\etc\hosts` on Windows) to allow for domain aliases:
 
-`For Mac`
+#### For Mac
 
 ```sh
 sudo vim /etc/hosts
@@ -134,7 +134,7 @@ sudo vim /etc/hosts
 127.0.0.1 todos.example.com api.example.com
 ```
 
-`For Windows (Elevated Command)`
+#### For Windows (Elevated Command)
 
 ```powershell
 Add-Content -Path $env:windir\System32\drivers\etc\hosts -Value "`n#ForgeRock React Sample Todo`r127.0.0.1`ttodos.example.com`tapi.example.com" -Force
