@@ -18,7 +18,7 @@ Once you have the 5 requirements above met, we can build the project.
 
 ### Security Certificates
 
-This project requires HTTPS (secure protocol) which means security (SSL/TLS) certificates are necessary. For local development, it's common to generate your own self-signed certificates. You're free to use any method to do this, but if you need assistance in generating your own certs, the following can be helpful:
+This project recommends HTTPS (secure protocol) which means security (SSL/TLS) certificates are encouraged. For local development, it's common to generate your own self-signed certificates. You're free to use any method to do this (or not generate certificates at all), but if you need assistance in generating your own certs, the following can be helpful:
 > **Windows: You'll need to install openssl for the commands below to work you can use chocolaty to install it using `choco install openssl`**
 
 ```sh
